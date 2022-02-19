@@ -20,9 +20,9 @@ typedef struct {
 
 typedef struct {
     Schema *schema;
-
-    UNIMPLEMENTED; 
-    
+    int fd;
+    int page_num;
+    char* page_buf;
 } Table ;
 
 typedef int RecId;
