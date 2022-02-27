@@ -45,7 +45,7 @@ char* getFreePointer(byte* pageBuf)
 int getFreeSpace(byte *pageBuf)
 {
     return getFreePointer(pageBuf) - pageBuf - \
-        (sizeof(int) + sizeof(char*) + getNumSlots(pageBuf)*sizeof(char*))
+        (sizeof(int) + sizeof(char*) + getNumSlots(pageBuf)*sizeof(char*));
 }
 
 
@@ -142,7 +142,7 @@ Table_Get(Table *tbl, RecId rid, byte *record, int maxlen) {
     memcpy(record, buffer+offset, maxlen<len ? maxlen : len);
 
     if(pageNum != tbl->page_num){
-        PF_UnfixPage(tbl->fd, pageNum);
+        PF_UnfixPage(tbl->fd, pageNum, TRUE);
     }
 
     return maxlen<len ? maxlen : len; // return size of record
