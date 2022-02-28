@@ -17,15 +17,18 @@ printRow(void *callbackObj, RecId rid, byte *row, int len) {
     int length,x,y;
     long z;
 
+    // decode the record based on the type of the coulumn 
     for(int i=0; i<schema->numColumns; i++){
         switch(schema->columns[i]->type){
 
             case VARCHAR:
                 length = DecodeShort(cursor);
+                // allocate memory for the string to be copied back
                 char* str = malloc(length+1);
                 x = DecodeCString(cursor, str, length+2);
                 printf("%s,", str);
                 cursor+=(x+2);
+                // free the allocated memory
                 free(str);
                 break;
 
@@ -64,12 +67,14 @@ index_scan(Table *tbl, Schema *schema, int indexFD, int op, int value) {
     int recId;
     int scanFD = AM_OpenIndexScan(indexFD, 'i', 4, op, (char*) &value);
 
+    // allocate a buffer to allow records to be copied back
     byte* buff = (byte*) malloc(PF_PAGE_SIZE);
     while((recId = AM_FindNextEntry(scanFD)) != AME_EOF){
         memset(buff, 0, PF_PAGE_SIZE);
         int recLen = Table_Get(tbl, recId, buff, PF_PAGE_SIZE);
         printRow(schema, recId, buff, recLen);
     }
+    // free the buffer
     free(buff);
 
     AM_CloseIndexScan(scanFD);
