@@ -118,13 +118,12 @@ loadCSV() {
 
         err = AM_InsertEntry(
             indexFD, attrType, attrLength, 
-            population,  // ??????????????????????
+            (char*)&population, 
             rid
         );
 
         UNIMPLEMENTED;
         // Use the population field as the field to index on
-            
         checkerr(err);
     }
 
