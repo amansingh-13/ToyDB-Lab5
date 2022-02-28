@@ -189,7 +189,7 @@ Table_Scan(Table *tbl, void *callbackObj, ReadFunc callbackfn)
         }
         
         err = PF_GetNextPage(tbl->fd, &page_num, &buffer);
-        checkerr(err);
+        
         if(err == PFE_PAGEFIXED){
             buffer = tbl->page_buf;
             page_num = tbl->page_num;
