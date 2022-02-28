@@ -115,6 +115,9 @@ loadCSV() {
         int len = encode(sch, tokens, record, sizeof(record));
         RecId rid;
 
+        // Print to ensure correct info
+        printf("%d %s\n", rid, tokens[0]);
+
         // Insert the encoded data into the table
         Table_Insert(tbl, record, len, &rid);
 

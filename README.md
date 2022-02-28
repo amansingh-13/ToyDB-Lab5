@@ -1,7 +1,7 @@
 This assignment was done by :
 
-190020010 Aman Singh
-190100036 Krushnakant Bhattad
+190020010 Aman Singh          [Task 1 + Task 3]
+190100036 Krushnakant Bhattad [Task 2 + Task 3]
 
 
 
@@ -9,14 +9,23 @@ This assignment was done by :
 
 190020010_190100036
 |
-`- README.md
-`- screenshots/
+`- README.md      #This is the current readme file with required info
+`- screenshots/   #Screenshots as required
 `- toydb/
   |
   `- amlayer/
   `- pflayer/
   `- dblayer/
+  `- README.md    #This is the readme file from the problem statement
+  `- am.pdf
+  `- pf.pdf
 
+
+# Instructions to Run
+Run `make clean` followed by `make` in all 3 sub-folders of toydb
+cd into dblayer/ , and run ./loaddb 
+followed by    ./dumpdb s     OR    ./dumpdb i
+as required.
 
 
 # Explanation of the execution:
@@ -36,7 +45,7 @@ handle this functionality.
 The table struct holds the database's file descriptor, the 
 schema and the page number and buffer pointer of the 
 page currently fixed in memory.
-All the other functions are implemented was described in
+All the other functions are implemented as described in
 the comments.
 
 

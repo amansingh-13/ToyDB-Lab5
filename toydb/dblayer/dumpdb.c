@@ -100,6 +100,7 @@ main(int argc, char **argv) {
         // yield the complete database.
         index_scan(tbl, schema, indexFD, LESS_THAN_EQUAL, 100000);
         index_scan(tbl, schema, indexFD, GREATER_THAN, 100000);
+        checkerr(PF_CloseFile(indexFD));
     }
     Table_Close(tbl);
 }
