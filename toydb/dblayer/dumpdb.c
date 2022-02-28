@@ -21,16 +21,24 @@ printRow(void *callbackObj, RecId rid, byte *row, int len) {
 	 
 void
 index_scan(Table *tbl, Schema *schema, int indexFD, int op, int value) {
-    UNIMPLEMENTED;
-    /*
-    Open index ...
-    while (true) {
-	find next entry in index
-	fetch rid from table
-        printRow(...)
+    // Open index ...
+    // while (true) {
+	// find next entry in index
+	// fetch rid from table
+    //     printRow(...)
+    // }
+    // close index ...
+    int recId;
+    int scanFD = AM_OpenIndexScan(indexFD, 'i', 4, op, (char*) &value);
+
+    byte* buff = (byte*) malloc(PF_PAGE_SIZE);
+    while((recId = AM_FindNextEntry(scanFD)) != AME_EOF){
+        memset(buff, 0, PF_PAGE_SIZE);
+        int recLen = Table_Get(tbl, recId, buff, PF_PAGE_SIZE);
+        printRow(------, recId, buff, recLen);
     }
-    close index ...
-    */
+
+    AM_CloseIndexScan(scanFD);
 }
 
 int
@@ -41,17 +49,17 @@ main(int argc, char **argv) {
 
     UNIMPLEMENTED;
     if (argc == 2 && *(argv[1]) == 's') {
-	UNIMPLEMENTED;
-	// invoke Table_Scan with printRow, which will be invoked for each row in the table.
+        UNIMPLEMENTED;
+        // invoke Table_Scan with printRow, which will be invoked for each row in the table.
     } else {
-	// index scan by default
-	int indexFD = PF_OpenFile(INDEX_NAME);
-	checkerr(indexFD);
+        // index scan by default
+        int indexFD = PF_OpenFile(INDEX_NAME);
+        checkerr(indexFD);
 
-	// Ask for populations less than 100000, then more than 100000. Together they should
-	// yield the complete database.
-	index_scan(tbl, schema, indexFD, LESS_THAN_EQUAL, 100000);
-	index_scan(tbl, schema, indexFD, GREATER_THAN, 100000);
+        // Ask for populations less than 100000, then more than 100000. Together they should
+        // yield the complete database.
+        index_scan(tbl, schema, indexFD, LESS_THAN_EQUAL, 100000);
+        index_scan(tbl, schema, indexFD, GREATER_THAN, 100000);
     }
     Table_Close(tbl);
 }
