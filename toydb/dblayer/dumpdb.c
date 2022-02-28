@@ -7,7 +7,6 @@
 #include "../amlayer/am.h"
 #include <string.h>
 #define checkerr(err) {if (err < 0) {PF_PrintError(); exit(1);}}
-#define UNIMPLEMENTED (1==1)
 
 void
 printRow(void *callbackObj, RecId rid, byte *row, int len) {
@@ -49,7 +48,6 @@ printRow(void *callbackObj, RecId rid, byte *row, int len) {
                 exit(EXIT_FAILURE);
         }
     }
-    UNIMPLEMENTED;
 }
 
 #define DB_NAME "data.db"
@@ -89,10 +87,8 @@ main(int argc, char **argv) {
     int err = Table_Open(DB_NAME, schema, false, &tbl);
     checkerr(err);
 
-    UNIMPLEMENTED;
 
     if (argc == 2 && *(argv[1]) == 's') {
-        UNIMPLEMENTED;
         // invoke Table_Scan with printRow, which will be invoked for each row in the table.
         Table_Scan(tbl, schema, printRow);
     } else {
