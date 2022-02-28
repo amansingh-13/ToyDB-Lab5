@@ -92,7 +92,7 @@ loadCSV() {
 
     int indexFD = PF_OpenFile(INDEX_NAME);
 
-    UNIMPLEMENTED;
+    // UNIMPLEMENTED;
 
     char *tokens[MAX_TOKENS];
     char record[MAX_PAGE_SIZE];
@@ -105,7 +105,7 @@ loadCSV() {
 
         Table_Insert(tbl, record, len, &rid);
 
-        UNIMPLEMENTED;
+        // UNIMPLEMENTED;
 
         printf("%d %s\n", rid, tokens[0]);
 
@@ -122,7 +122,7 @@ loadCSV() {
             rid
         );
 
-        UNIMPLEMENTED;
+        // UNIMPLEMENTED;
         // Use the population field as the field to index on
         checkerr(err);
     }
