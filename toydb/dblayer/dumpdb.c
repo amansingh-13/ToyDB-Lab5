@@ -18,14 +18,13 @@ printRow(void *callbackObj, RecId rid, byte *row, int len) {
     long z;
 
     for(int i=0; i<schema->numColumns; i++){
-        printf("%d, printing.............\n", i);
         switch(schema->columns[i]->type){
 
             case VARCHAR:
                 length = DecodeShort(cursor);
                 char* str = malloc(length+1);
                 x = DecodeCString(cursor, str, length+2);
-                printf("%s\n", str);
+                printf("%s,", str);
                 cursor+=(x+2);
                 free(str);
                 break;
