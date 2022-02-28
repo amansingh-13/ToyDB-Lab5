@@ -108,7 +108,7 @@ loadCSV() {
 
         // UNIMPLEMENTED;
 
-        printf("%d %s\n", rid, tokens[0]);
+        // printf("%d %s\n", rid, tokens[0]);
 
         // Indexing on the population column 
         int population = atoi(tokens[2]);
