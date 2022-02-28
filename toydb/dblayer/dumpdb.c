@@ -46,9 +46,6 @@ printRow(void *callbackObj, RecId rid, byte *row, int len) {
                 exit(EXIT_FAILURE);
         }
     }
-
-    
-
     UNIMPLEMENTED;
 }
 
