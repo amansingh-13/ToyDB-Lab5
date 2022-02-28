@@ -21,7 +21,7 @@ void setNumSlots(byte *pageBuf, int nslots)
 int getNthSlotOffset(int slot, char* pageBuf)
 {
     //                  base     no_of_recs  ptr_to_free_space
-    char** slot_list = pageBuf + sizeof(int) + sizeof(char*);
+    char** slot_list = (char**) pageBuf + sizeof(int) + sizeof(char*);
     if(slot > 0)
         return slot_list[slot-1] - pageBuf;
     else
@@ -29,8 +29,8 @@ int getNthSlotOffset(int slot, char* pageBuf)
 }
 int getLen(int slot, byte *pageBuf)
 {
-	char* begin = getNthSlotOffset(slot,   (char*) pageBuf);
-	char* end   = getNthSlotOffset(slot-1, (char*) pageBuf);
+	int begin = getNthSlotOffset(slot,   (char*) pageBuf);
+	int end   = getNthSlotOffset(slot-1, (char*) pageBuf);
     return end - begin;
 }
 
@@ -111,7 +111,8 @@ Table_Insert(Table *tbl, byte *record, int len, RecId *rid)
     setFreePointer(tbl->page_buf, ptr-len);
     setNumSlots(tbl->page_buf, nslots+1);
     memcpy(ptr-len, record, len);
-    *rid = tbl->page_num << 16 + (nslots+1);
+    *rid = (tbl->page_num << 16) +(nslots+1);
+    //printf("%d, %d, %d\n", tbl->page_num<<16, (nslots+1), *rid);
 }
 
 #define checkerr(err) {if (err < 0) {PF_PrintError(); exit(EXIT_FAILURE);}}

@@ -28,21 +28,22 @@ encode(Schema *sch, char **fields, byte *record, int spaceLeft) {
     //UNIMPLEMENTED;
 
     int init_space = spaceLeft;
+    int x;
 
     for(int i=0; i<sch->numColumns; i++){
         switch(sch->columns[i]->type){
             case VARCHAR:
-                int x = EncodeCString(fields[i], record, spaceLeft);
+                x = EncodeCString(fields[i], record, spaceLeft);
                 spaceLeft-=x;
                 record+=x;
                 break;
             case INT:
-                int x = EncodeInt(fields[i], record);
+                x = EncodeInt(atoi(fields[i]), record);
                 spaceLeft-=x;
                 record+=x;
                 break;
             case LONG:
-                int x = EncodeLong(fields[i], record);
+                x = EncodeLong(atol(fields[i]), record);
                 spaceLeft-=x;
                 record+=x;
                 break;
