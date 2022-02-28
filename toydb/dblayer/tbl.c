@@ -79,7 +79,7 @@ Table_Open(char *dbname, Schema *schema, bool overwrite, Table **ptable)
 
     *ptable = (Table*) malloc(sizeof(Table));
     (*ptable)->fd = fd;
-    (*ptable)->page_num = 0;
+    (*ptable)->page_num = -1;
     (*ptable)->page_buf = NULL;
 
     return 0;
