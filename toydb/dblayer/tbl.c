@@ -21,7 +21,10 @@ void setNumSlots(byte *pageBuf, int nslots)
 int getNthSlotOffset(int slot, char* pageBuf)
 {
     //                  base     no_of_recs  ptr_to_free_space
-    char** slot_list = (char**) pageBuf + sizeof(int) + sizeof(char*);
+    char** slot_list = (((byte*) pageBuf) + sizeof(int) + sizeof(char*));
+
+    printf("%p, %p, %p\n", pageBuf, slot_list, slot_list[slot-1]);
+
     if(slot > 0)
         return slot_list[slot-1] - pageBuf;
     else
@@ -167,6 +170,7 @@ Table_Scan(Table *tbl, void *callbackObj, ReadFunc callbackfn)
         for(int i=1; i<=getNumSlots(buffer); i++){
             int rid = page_num << 16 + i;
             char* record = buffer + getNthSlotOffset(i, buffer);
+            printf("%d\n", getNthSlotOffset(i, buffer));
             int recordLen = getLen(i, buffer);
             callbackfn(callbackObj, rid, record, recordLen);
         }
