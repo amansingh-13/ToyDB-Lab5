@@ -7,6 +7,7 @@ This assignment was done by :
 
 # Directory Structure :
 
+```
 190020010_190100036
 |
 `- README.md      #This is the current readme file with required info
@@ -19,7 +20,7 @@ This assignment was done by :
   `- README.md    #This is the readme file from the problem statement
   `- am.pdf
   `- pf.pdf
-
+```
 
 # Instructions to Run
 Run `make clean` followed by `make` in all 3 sub-folders of toydb
